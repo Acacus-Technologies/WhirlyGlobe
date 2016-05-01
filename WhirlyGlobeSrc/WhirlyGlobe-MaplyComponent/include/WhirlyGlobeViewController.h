@@ -188,6 +188,9 @@
   */
 - (void)globeViewController:(WhirlyGlobeViewController *__nonnull)viewC didMove:(MaplyCoordinate *__nonnull)corners;
 
+// Implement didTapAnnotation on WhirlyGlobe.
+- (void)globeViewController:(WhirlyGlobeViewController *__nonnull)viewC didTapAnnotation:(MaplyAnnotation *__nonnull)annotation;
+
 @end
 
 /** @brief This view controller implements a 3D interactive globe.

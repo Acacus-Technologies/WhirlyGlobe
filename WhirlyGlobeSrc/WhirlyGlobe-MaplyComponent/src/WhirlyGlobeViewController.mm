@@ -21,6 +21,7 @@
 #import <WhirlyGlobe.h>
 #import "WhirlyGlobeViewController.h"
 #import "WhirlyGlobeViewController_private.h"
+#import "MaplyAnnotation_private.h"
 
 using namespace Eigen;
 using namespace WhirlyKit;
@@ -1931,6 +1932,18 @@ static const float FullExtentEps = 1e-5;
     }
     
     return mbrs.size();
+}
+
+// Implement didTapAnnotation on WhirlyGlobe.
+- (void)calloutViewClicked:(SMCalloutView *)calloutView {
+    if ([self.delegate respondsToSelector:@selector(globeViewController:didTapAnnotation:)]) {
+        for (MaplyAnnotation *annotation in self.annotations) {
+            if (annotation.calloutView == calloutView) {
+                [self.delegate globeViewController:self didTapAnnotation:annotation];
+                return;
+            }
+        }
+    }
 }
 
 @end
