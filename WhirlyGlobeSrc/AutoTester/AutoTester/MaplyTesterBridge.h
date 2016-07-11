@@ -18,6 +18,7 @@
 #import "MapBoxVectorTestCase.h"
 #import "MapboxVectorTiles.h"
 #import "VectorsTestCase.h"
+#import "ShapefileTestCase.h"
 #import "ScreenMarkersTestCase.h"
 #import "MapzenSource.h"
 #import "MapjamSource.h"
@@ -40,5 +41,7 @@
 #import "WMSTestCase.h"
 #import "FindHeightTestCase.h"
 #import "FullAnimationTest.h"
+#import "DownloadResourceOperation.h"
+#import "PagingLayerTestCase.h"
 
 #endif

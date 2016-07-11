@@ -2,8 +2,8 @@
 //  ScreenMarkersTestCase.h
 //  AutoTester
 //
-//  Created by jmnavarro on 30/10/15.
-//  Copyright © 2015 mousebird consulting. All rights reserved.
+//  Created by Steve Gifford on 6/16/16.
+//  Copyright © 2016 mousebird consulting. All rights reserved.
 //
 
 #import "MaplyTestCase.h"

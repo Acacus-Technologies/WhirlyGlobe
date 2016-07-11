@@ -1,5 +1,5 @@
 //
-//  MarkersTestCase.swift
+//  MarkersTestCase.m
 //  AutoTester
 //
 //  Created by jmnavarro on 2/11/15.
@@ -15,14 +15,14 @@ class MarkersTestCase: MaplyTestCase {
 
 		self.name = "Markers"
 		self.captureDelay = 4
+		self.implementations = [.Globe, .Map]
 	}
 
 	func insertMarkers (arrayComp: NSArray, theViewC: MaplyBaseViewController) {
 		let size = CGSizeMake(0.05, 0.05);
 		let startImage = UIImage(named: "airfield-24@2x")
 		var markers = [MaplyMarker]()
-		for var i=0; i < arrayComp.count; i = i + 1
-        {
+		for i in 0 ..< arrayComp.count {
 			let object = arrayComp[i]
 			let marker = MaplyMarker()
 			marker.image = startImage
@@ -34,20 +34,18 @@ class MarkersTestCase: MaplyTestCase {
 		theViewC.addMarkers(markers, desc: nil)
 	}
 
-	override func setUpWithGlobe(globeVC: WhirlyGlobeViewController) -> Bool {
+	override func setUpWithGlobe(globeVC: WhirlyGlobeViewController) {
 		let baseLayer  = VectorsTestCase()
 		baseLayer.setUpWithGlobe(globeVC)
 		insertMarkers(baseLayer.compList!, theViewC: globeVC)
 		globeVC.animateToPosition(MaplyCoordinateMakeWithDegrees(151.211111, -33.859972), time: 1.0)
-		return true
 	}
 
-	override func setUpWithMap(mapVC: MaplyViewController) -> Bool {
+	override func setUpWithMap(mapVC: MaplyViewController) {
 		let baseLayer = VectorsTestCase()
 		baseLayer.setUpWithMap(mapVC)
 		insertMarkers(baseLayer.compList!, theViewC: mapVC)
 		mapVC.animateToPosition(MaplyCoordinateMakeWithDegrees(151.211111, -33.859972), time: 1.0)
-		return true
 	}
 
 }

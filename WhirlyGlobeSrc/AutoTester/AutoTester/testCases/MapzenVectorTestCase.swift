@@ -8,16 +8,17 @@
 
 import UIKit
 
-class MapzenVectorTestCase: MaplyTestCase, MaplyViewControllerDelegate {
+class MapzenVectorTestCase: MaplyTestCase {
 
 	override init() {
 		super.init()
 
 		self.name = "Mapzen Vectors"
 		self.captureDelay = 5
+		self.implementations = [ .Map]
 	}
 
-	override func setUpWithMap(mapVC: MaplyViewController) -> Bool {
+	override func setUpWithMap(mapVC: MaplyViewController) {
 		let baseLayer = MapquestSatelliteTestCase()
 		baseLayer.setUpWithMap(mapVC)
 
@@ -46,8 +47,6 @@ class MapzenVectorTestCase: MaplyTestCase, MaplyViewControllerDelegate {
 		pageLayer?.singleLevelLoading = true
 		mapVC.addLayer(pageLayer!)
 		mapVC.animateToPosition(MaplyCoordinateMakeWithDegrees(-122.290,37.7793), height: 0.0005, time: 0.1)
-
-		return true
 	}
 
 }

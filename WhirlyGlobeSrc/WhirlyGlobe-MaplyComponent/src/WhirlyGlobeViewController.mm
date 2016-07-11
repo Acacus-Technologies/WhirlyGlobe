@@ -378,6 +378,7 @@ using namespace WhirlyGlobe;
 - (void)setPanGesture:(bool)enabled
 {
     panDelegate.gestureRecognizer.enabled = enabled;
+    pinchDelegate.allowPan = enabled;
 }
 
 

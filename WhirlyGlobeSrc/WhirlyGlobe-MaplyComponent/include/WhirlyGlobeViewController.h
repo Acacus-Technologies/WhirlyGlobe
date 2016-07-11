@@ -150,7 +150,7 @@
     @param viewC The view controller where the user selected something.
     @param coord The location (geographic lon/lat in radians) where the user tapped.
   */
-- (void)globeViewController:(WhirlyGlobeViewController *__nonnull)viewC didTapAt:(WGCoordinate)coord;
+- (void)globeViewController:(WhirlyGlobeViewController *__nonnull)viewC didTapAt:(MaplyCoordinate)coord;
 
 /** @brief This is an older method called when some layers load.
     @details Certain image layers call this method when they finish loading.  More modern layers don't, so don't rely on this.
@@ -221,7 +221,7 @@
  */
 @property(nonatomic,assign) bool rotateGesture;
 
-/** @brief Turn the tilte gesture recognizer on and off
+/** @brief Turn the tilt gesture recognizer on and off
     @details Off by default.
  */
 @property(nonatomic,assign) bool tiltGesture;

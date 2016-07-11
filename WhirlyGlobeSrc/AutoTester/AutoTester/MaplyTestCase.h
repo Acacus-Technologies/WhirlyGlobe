@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MaplyTestResult.h"
+#import "WhirlyGlobeComponent.h"
+
 
 @class MaplyViewController;
 @class WhirlyGlobeViewController;
@@ -17,23 +19,36 @@
 typedef void (^TestCaseResult)(MaplyTestCase * _Nonnull testCase);
 
 typedef NS_OPTIONS(NSUInteger, MaplyTestCaseOptions) {
-	MaplyTestCaseOptionNone  = 0 << 0,
 	MaplyTestCaseOptionGlobe = 1 << 1,
 	MaplyTestCaseOptionMap   = 1 << 2,
 };
 
+typedef NS_OPTIONS(NSUInteger, MaplyTestCaseImplementations) {
+	MaplyTestCaseImplementationGlobe = 1 << 1,
+	MaplyTestCaseImplementationMap   = 1 << 2,
+};
 
-@interface MaplyTestCase : NSObject
+typedef NS_OPTIONS(NSUInteger, MaplyTestCaseState) {
+	MaplyTestCaseStateDownloading,
+	MaplyTestCaseStateReady,
+	MaplyTestCaseStateSelected,
+	MaplyTestCaseStateError,
+	MaplyTestCaseStateRunning,
+};
 
-- (void)start:(bool)manual;
+@interface MaplyTestCase : NSObject <WhirlyGlobeViewControllerDelegate,MaplyViewControllerDelegate>
+
+- (void)start;
 
 // these prototypes are necessary for Swift
-- (BOOL)setUpWithGlobe:(WhirlyGlobeViewController * _Nonnull)globeVC;
+- (void)setUpWithGlobe:(WhirlyGlobeViewController * _Nonnull)globeVC;
 - (void)tearDownWithGlobe:(WhirlyGlobeViewController * _Nonnull)globeVC;
+- (NSArray * _Nullable)remoteResources;
 
-- (BOOL)setUpWithMap:(MaplyViewController * _Nonnull)mapVC;
+- (void)setUpWithMap:(MaplyViewController * _Nonnull)mapVC;
 - (void)tearDownWithMap:(MaplyViewController * _Nonnull)mapVC;
-
+- (void) removeGlobeController;
+- (void) removeMapController;
 - (MaplyCoordinateSystem * _Nullable)customCoordSystem;
 
 @property (nonatomic, strong) UIView * _Nullable testView;
@@ -42,10 +57,17 @@ typedef NS_OPTIONS(NSUInteger, MaplyTestCaseOptions) {
 @property (nonatomic) NSInteger captureDelay;
 
 @property (nonatomic) MaplyTestCaseOptions options;
+@property (nonatomic) MaplyTestCaseImplementations implementations;
 
-@property (nonatomic) BOOL selected;
-@property (nonatomic) BOOL running;
+@property (nonatomic) MaplyTestCaseState state;
+@property (nonatomic) BOOL interactive;
 
+@property (nonatomic) NSInteger pendingDownload;
+
+@property (nonatomic, copy, nullable) void (^updateProgress)(BOOL enableIndicator);
+
+
+@property (nonatomic, weak) MaplyBaseViewController * _Nullable baseViewController;
 @property (nonatomic, strong) WhirlyGlobeViewController *_Nullable globeViewController;
 @property (nonatomic, strong) MaplyViewController * _Nullable mapViewController;
 

@@ -467,6 +467,8 @@
 		8813F5721B468B16004E595F /* WhirlyOctEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 8813F5711B468B16004E595F /* WhirlyOctEncoding.h */; };
 		884D4F6D1975812700F2D517 /* MaplyTouchCancelAnimationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 884D4F6B1975812700F2D517 /* MaplyTouchCancelAnimationDelegate.mm */; };
 		884D4F6F1975818C00F2D517 /* MaplyTouchCancelAnimationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 884D4F6E1975818C00F2D517 /* MaplyTouchCancelAnimationDelegate.h */; };
+		88637D591D2D05F4001CE6E2 /* IntersectionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 88637D581D2D05F4001CE6E2 /* IntersectionManager.mm */; };
+		88637D5B1D2D0622001CE6E2 /* IntersectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 88637D5A1D2D0622001CE6E2 /* IntersectionManager.h */; };
 		E594E38C17E81434008D5741 /* MaplyRotateDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E594E38B17E81434008D5741 /* MaplyRotateDelegate.mm */; };
 /* End PBXBuildFile section */
 
@@ -923,6 +925,9 @@
 		2BDC8A821937B57600DFECF0 /* WideVectorManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WideVectorManager.mm; sourceTree = "<group>"; };
 		2BDC8A841937B76800DFECF0 /* WideVectorDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WideVectorDrawable.h; sourceTree = "<group>"; };
 		2BDC8A861937B77C00DFECF0 /* WideVectorDrawable.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WideVectorDrawable.mm; sourceTree = "<group>"; };
+		2BE53AB61D249CC600B60FAD /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		2BE53AB81D249CCC00B60FAD /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		2BE53ABA1D249CD000B60FAD /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		2BE684FF1B4B50E100A5C04C /* BaseInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseInfo.mm; sourceTree = "<group>"; };
 		2BE685011B4B510100A5C04C /* BaseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseInfo.h; sourceTree = "<group>"; };
 		2BE6EE5412E4F44900415490 /* PinchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinchDelegate.h; sourceTree = "<group>"; };
@@ -975,6 +980,8 @@
 		8813F5711B468B16004E595F /* WhirlyOctEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyOctEncoding.h; sourceTree = "<group>"; };
 		884D4F6B1975812700F2D517 /* MaplyTouchCancelAnimationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MaplyTouchCancelAnimationDelegate.mm; sourceTree = "<group>"; tabWidth = 4; };
 		884D4F6E1975818C00F2D517 /* MaplyTouchCancelAnimationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyTouchCancelAnimationDelegate.h; sourceTree = "<group>"; };
+		88637D581D2D05F4001CE6E2 /* IntersectionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IntersectionManager.mm; sourceTree = "<group>"; };
+		88637D5A1D2D0622001CE6E2 /* IntersectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntersectionManager.h; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* WhirlyGlobeLib_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyGlobeLib_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E594E38917E8133D008D5741 /* MaplyRotateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyRotateDelegate.h; sourceTree = "<group>"; };
@@ -1020,6 +1027,9 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2BE53ABA1D249CD000B60FAD /* libc++.tbd */,
+				2BE53AB81D249CCC00B60FAD /* libstdc++.tbd */,
+				2BE53AB61D249CC600B60FAD /* libxml2.tbd */,
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -1597,28 +1607,29 @@
 		2BA2328517986A9F0063CC84 /* managers */ = {
 			isa = PBXGroup;
 			children = (
-				2BF55A631BB9DDB900984C54 /* OverlapHelper.h */,
 				2BE685011B4B510100A5C04C /* BaseInfo.h */,
-				2BA2328617986ACA0063CC84 /* LabelManager.h */,
-				2BA2328717986ACA0063CC84 /* LayoutManager.h */,
-				2BA2328817986ACA0063CC84 /* MarkerManager.h */,
-				2BA2328917986ACA0063CC84 /* ShapeManager.h */,
-				2BA2328A17986ACA0063CC84 /* VectorManager.h */,
-				2BB25923177A042F00770619 /* SceneGraphManager.h */,
-				2B308B10171F638F006D7273 /* SelectionManager.h */,
-				2B665468179F271200FB4427 /* SphericalEarthChunkManager.h */,
-				2BB1787117A8313700AD0614 /* BillboardManager.h */,
 				2BB25922177A042F00770619 /* BillboardDrawable.h */,
-				2BB1787217A8313900AD0614 /* ParticleSystemManager.h */,
-				2BB1787317A8313C00AD0614 /* LoftManager.h */,
-				2BDC8A801937B56300DFECF0 /* WideVectorManager.h */,
-				2BDC8A841937B76800DFECF0 /* WideVectorDrawable.h */,
-				2BADF96819A7D85000C40CAA /* ScreenSpaceDrawable.h */,
-				2B13BAA318B7E192007DA1A3 /* ScreenSpaceBuilder.h */,
+				2BB1787117A8313700AD0614 /* BillboardManager.h */,
 				2BB7A9671A250A5600E50DC5 /* GeometryManager.h */,
 				2BB7A9691A250A6300E50DC5 /* GeometryManager.mm */,
 				2BB7A9701A2661A700E50DC5 /* GeometryOBJReader.h */,
 				2BB7A9721A2661B300E50DC5 /* GeometryOBJReader.mm */,
+				88637D5A1D2D0622001CE6E2 /* IntersectionManager.h */,
+				2BA2328617986ACA0063CC84 /* LabelManager.h */,
+				2BA2328717986ACA0063CC84 /* LayoutManager.h */,
+				2BB1787317A8313C00AD0614 /* LoftManager.h */,
+				2BA2328817986ACA0063CC84 /* MarkerManager.h */,
+				2BF55A631BB9DDB900984C54 /* OverlapHelper.h */,
+				2BB1787217A8313900AD0614 /* ParticleSystemManager.h */,
+				2BB25923177A042F00770619 /* SceneGraphManager.h */,
+				2B13BAA318B7E192007DA1A3 /* ScreenSpaceBuilder.h */,
+				2BADF96819A7D85000C40CAA /* ScreenSpaceDrawable.h */,
+				2B308B10171F638F006D7273 /* SelectionManager.h */,
+				2BA2328917986ACA0063CC84 /* ShapeManager.h */,
+				2B665468179F271200FB4427 /* SphericalEarthChunkManager.h */,
+				2BA2328A17986ACA0063CC84 /* VectorManager.h */,
+				2BDC8A841937B76800DFECF0 /* WideVectorDrawable.h */,
+				2BDC8A801937B56300DFECF0 /* WideVectorManager.h */,
 			);
 			name = managers;
 			sourceTree = "<group>";
@@ -1626,21 +1637,22 @@
 		2BA2329017986AD40063CC84 /* managers */ = {
 			isa = PBXGroup;
 			children = (
-				2BF55A651BB9DDC200984C54 /* OverlapHelper.mm */,
 				2BE684FF1B4B50E100A5C04C /* BaseInfo.mm */,
+				2BB1787717A8315800AD0614 /* BillboardManager.mm */,
+				88637D581D2D05F4001CE6E2 /* IntersectionManager.mm */,
 				2BA2329117986AE90063CC84 /* LabelManager.mm */,
 				2BA2329217986AE90063CC84 /* LayoutManager.mm */,
-				2BA2329317986AE90063CC84 /* MarkerManager.mm */,
-				2BA2329417986AE90063CC84 /* ShapeManager.mm */,
-				2BA2329517986AE90063CC84 /* VectorManager.mm */,
-				2B66546A179F272700FB4427 /* SphericalEarthChunkManager.mm */,
-				2BB1787717A8315800AD0614 /* BillboardManager.mm */,
-				2BB1787817A8315A00AD0614 /* ParticleSystemManager.mm */,
 				2BB1787917A8315B00AD0614 /* LoftManager.mm */,
-				2BDC8A821937B57600DFECF0 /* WideVectorManager.mm */,
-				2BDC8A861937B77C00DFECF0 /* WideVectorDrawable.mm */,
-				2BADF96619A7D83700C40CAA /* ScreenSpaceDrawable.mm */,
+				2BA2329317986AE90063CC84 /* MarkerManager.mm */,
+				2BF55A651BB9DDC200984C54 /* OverlapHelper.mm */,
+				2BB1787817A8315A00AD0614 /* ParticleSystemManager.mm */,
 				2BADF96419A7D78100C40CAA /* ScreenSpaceBuilder.mm */,
+				2BADF96619A7D83700C40CAA /* ScreenSpaceDrawable.mm */,
+				2BA2329417986AE90063CC84 /* ShapeManager.mm */,
+				2B66546A179F272700FB4427 /* SphericalEarthChunkManager.mm */,
+				2BA2329517986AE90063CC84 /* VectorManager.mm */,
+				2BDC8A861937B77C00DFECF0 /* WideVectorDrawable.mm */,
+				2BDC8A821937B57600DFECF0 /* WideVectorManager.mm */,
 			);
 			name = managers;
 			sourceTree = "<group>";
@@ -2090,6 +2102,7 @@
 				2B92EF9D163760C300C5165F /* OpenGLES2Program.h in Headers */,
 				2B7AD8B01649DD06006C9E75 /* Lighting.h in Headers */,
 				2BB0717F1676B5EE00DE387D /* SphericalEarthChunkLayer.h in Headers */,
+				88637D5B1D2D0622001CE6E2 /* IntersectionManager.h in Headers */,
 				2BB071821676B5FE00DE387D /* LayoutLayer.h in Headers */,
 				2BB071841676B66300DE387D /* BufferBuilder.h in Headers */,
 				2BB9A8B116DFFF060069E19C /* DynamicTextureAtlas.h in Headers */,
@@ -2419,6 +2432,7 @@
 				2B7EF49716025D8C00D4079F /* PJ_ob_tran.c in Sources */,
 				2B7EF49816025D8C00D4079F /* PJ_ocea.c in Sources */,
 				2B7EF49916025D8C00D4079F /* PJ_oea.c in Sources */,
+				88637D591D2D05F4001CE6E2 /* IntersectionManager.mm in Sources */,
 				2B7EF49A16025D8C00D4079F /* PJ_omerc.c in Sources */,
 				2B7EF49B16025D8C00D4079F /* pj_open_lib.c in Sources */,
 				2B7EF49C16025D8C00D4079F /* PJ_ortho.c in Sources */,

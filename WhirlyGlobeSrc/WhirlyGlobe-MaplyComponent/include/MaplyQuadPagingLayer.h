@@ -134,6 +134,13 @@ typedef NS_ENUM(NSInteger, MaplyQuadPagingDataStyle) {
  */
 - (int)targetZoomLevel;
 
+/** @brief Modify how the importance (screen space) is calculated for any given tile.
+    @details This is set by default and when set we use the parent's bounding box to calculate importance for a given tile.
+    @details This has the effect of forcing all four children to load at once.  If you don't need that, if you're doing additive
+        geometry, for instance, then you can set this to false.
+  */
+@property (nonatomic) bool useParentTileBounds;
+
 /** @brief This controls how the importance of tiles is calculated.  Either individually (false) or with the parent (true),
     @details This is a low level laoding control parameter.  Don't change unless you know why.
     @details By default this is true.
@@ -254,6 +261,11 @@ typedef NS_ENUM(NSInteger, MaplyQuadPagingDataStyle) {
     @details Figures out which tiles overlap the given bounding box and asks for a refresh on those.
   */
 - (void)reload:(MaplyBoundingBox)bounds;
+
+/** @brief Generate a 3D bounding box for the given tile.
+    @details Generate a bounding box for the tile in its native coordinate system.  It may also call out to the delegate for accurate Z values.
+  */
+- (void)boundingBoxForTile:(MaplyTileID)tileID ll:(MaplyCoordinate3dD * __nonnull)ll ur:(MaplyCoordinate3dD * __nonnull)ur;
 
 
 - (nullable NSObject<MaplyPagingDelegate> *)pagingDelegate;

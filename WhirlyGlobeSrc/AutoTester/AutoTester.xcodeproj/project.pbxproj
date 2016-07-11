@@ -24,13 +24,16 @@
 		2B4BA6D91C83A22000DC1562 /* uturn.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 2B4BA6CD1C83A22000DC1562 /* uturn.geojson */; };
 		2B6953651C7E601A007FC51E /* AnimatedColorRampTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6953641C7E601A007FC51E /* AnimatedColorRampTestCase.m */; };
 		2B6953681C7E67DD007FC51E /* colorramp.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B6953671C7E67DD007FC51E /* colorramp.png */; };
+		2BC2DCCD1D1F4CE20088D350 /* ShapefileTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2DCCC1D1F4CE20088D350 /* ShapefileTestCase.m */; };
+		2BC2DCF01D2345AF0088D350 /* PagingLayerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2DCEF1D2345AF0088D350 /* PagingLayerTestCase.m */; };
 		2BDEB3021C924842003259B3 /* ExtrudedModelTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDEB3011C924842003259B3 /* ExtrudedModelTestCase.m */; };
 		2BDEB3141C9391EB003259B3 /* GreatCircleTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDEB3131C9391EB003259B3 /* GreatCircleTestCase.m */; };
 		2BDEB3361C989D18003259B3 /* MapquestSatelliteTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDEB3351C989D18003259B3 /* MapquestSatelliteTestCase.m */; };
+		2BE53AF31D258FEE00B60FAD /* libWhirlyGlobeLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BE53AF21D258FEE00B60FAD /* libWhirlyGlobeLib.a */; };
+		2BE53AF41D25901300B60FAD /* WhirlyGlobeMaplyComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BE53AEF1D258FE800B60FAD /* WhirlyGlobeMaplyComponent.framework */; };
 		2BEA7D711CC54A0A004A0B38 /* MapjamVectorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA7D701CC54A0A004A0B38 /* MapjamVectorTestCase.swift */; };
 		2BEA7D741CC54A95004A0B38 /* MapjamSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA7D731CC54A95004A0B38 /* MapjamSource.m */; };
-		2BEA7D771CC54DBB004A0B38 /* mapjam-street-map.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BEA7D761CC54DBB004A0B38 /* mapjam-street-map.json */; };
-		88019FAE1B8F7D6D00674B00 /* libWhirlyGlobe-MaplyComponent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88019FAD1B8F7AB800674B00 /* libWhirlyGlobe-MaplyComponent.a */; };
+		2BFC7E511D132DCB0040E2A3 /* ScreenMarkersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7E501D132DCB0040E2A3 /* ScreenMarkersTestCase.m */; };
 		88231C791BA784BC00A95F2B /* ConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88231C781BA784BC00A95F2B /* ConfigViewController.xib */; };
 		883DF71B1C1CE164000756E9 /* AnimatedBasemapTestCase-globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 883DF6F11C1CE164000756E9 /* AnimatedBasemapTestCase-globe.png */; };
 		883DF71C1C1CE164000756E9 /* AnimatedBasemapTestCase-map.png in Resources */ = {isa = PBXBuildFile; fileRef = 883DF6F21C1CE164000756E9 /* AnimatedBasemapTestCase-map.png */; };
@@ -481,6 +484,10 @@
 		88FF5EF11BC31D95002F15CE /* tl_2013_06075_roads.shp in Resources */ = {isa = PBXBuildFile; fileRef = 88FF5DF21BC31D95002F15CE /* tl_2013_06075_roads.shp */; };
 		88FF5EF21BC31D95002F15CE /* tl_2013_06075_roads.shx in Resources */ = {isa = PBXBuildFile; fileRef = 88FF5DF31BC31D95002F15CE /* tl_2013_06075_roads.shx */; };
 		88FF5EF31BC31D95002F15CE /* tl_2013_06075_roads.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 88FF5DF41BC31D95002F15CE /* tl_2013_06075_roads.sqlite */; };
+		8F4D91DC1CDFA7DE00F68045 /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4D91DA1CDFA7DE00F68045 /* globe.png */; };
+		8F4D91DD1CDFA7DE00F68045 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4D91DB1CDFA7DE00F68045 /* map.png */; };
+		8FC34D0E1CE7218E00BEB7C4 /* DownloadResourceOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC34D0D1CE7218E00BEB7C4 /* DownloadResourceOperation.m */; };
+		8FE129191CDFB3B8004744FC /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE129181CDFB3B8004744FC /* TestCell.swift */; };
 		D8200C911BE92B2F00B22CF5 /* WideVectorsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8200C901BE92B2F00B22CF5 /* WideVectorsTestCase.m */; };
 		D8200C981BE93E6E00B22CF5 /* StarsSunTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8200C971BE93E6E00B22CF5 /* StarsSunTestCase.swift */; };
 		D8200C9F1BE9516300B22CF5 /* ShapesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8200C9E1BE9516300B22CF5 /* ShapesTestCase.m */; };
@@ -492,7 +499,6 @@
 		D8341A631BE299BF00411A46 /* MapzenVectorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8341A621BE299BF00411A46 /* MapzenVectorTestCase.swift */; };
 		D8341A711BE2C8D200411A46 /* VectorsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8341A701BE2C8D200411A46 /* VectorsTestCase.m */; };
 		D8341A731BE2DFE100411A46 /* ScreenLabelsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8341A721BE2DFE100411A46 /* ScreenLabelsTestCase.swift */; };
-		D8341A761BE2E89E00411A46 /* ScreenMarkersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8341A751BE2E89E00411A46 /* ScreenMarkersTestCase.m */; };
 		D84433E71C14A46200A52117 /* NASAGIBSTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84433E61C14A46100A52117 /* NASAGIBSTestCase.swift */; };
 		D84433EB1C14E4E700A52117 /* CartoDBTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D84433EA1C14E4E700A52117 /* CartoDBTestCase.m */; };
 		D84433EE1C14E4FE00A52117 /* CartoDBLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D84433ED1C14E4FE00A52117 /* CartoDBLayer.m */; };
@@ -524,12 +530,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		88019FAC1B8F7AB800674B00 /* PBXContainerItemProxy */ = {
+		2BE53AEE1D258FE800B60FAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 88019FA71B8F7AB800674B00 /* WhirlyGlobe-MaplyComponent.xcodeproj */;
+			containerPortal = 2BE53AE81D258FE800B60FAD /* WhirlyGlobeMaplyComponent.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 2B11E0DB15B4C030007AAE3F;
-			remoteInfo = "WhirlyGlobe-MaplyComponent";
+			remoteGlobalIDString = 2BE536FF1D2499E500B60FAD;
+			remoteInfo = WhirlyGlobeMaplyComponent;
+		};
+		2BE53AF01D258FE800B60FAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2BE53AE81D258FE800B60FAD /* WhirlyGlobeMaplyComponent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2BE537091D2499E500B60FAD;
+			remoteInfo = WhirlyGlobeMaplyComponentTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -556,18 +569,24 @@
 		2B6953631C7E601A007FC51E /* AnimatedColorRampTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedColorRampTestCase.h; sourceTree = "<group>"; };
 		2B6953641C7E601A007FC51E /* AnimatedColorRampTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedColorRampTestCase.m; sourceTree = "<group>"; };
 		2B6953671C7E67DD007FC51E /* colorramp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = colorramp.png; path = AutoTester/colorramp.png; sourceTree = "<group>"; };
+		2BC2DCCB1D1F4CE20088D350 /* ShapefileTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapefileTestCase.h; sourceTree = "<group>"; };
+		2BC2DCCC1D1F4CE20088D350 /* ShapefileTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShapefileTestCase.m; sourceTree = "<group>"; };
+		2BC2DCEE1D2345AF0088D350 /* PagingLayerTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingLayerTestCase.h; sourceTree = "<group>"; };
+		2BC2DCEF1D2345AF0088D350 /* PagingLayerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingLayerTestCase.m; sourceTree = "<group>"; };
 		2BDEB3001C924842003259B3 /* ExtrudedModelTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtrudedModelTestCase.h; sourceTree = "<group>"; };
 		2BDEB3011C924842003259B3 /* ExtrudedModelTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtrudedModelTestCase.m; sourceTree = "<group>"; };
 		2BDEB3121C9391EB003259B3 /* GreatCircleTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreatCircleTestCase.h; sourceTree = "<group>"; };
 		2BDEB3131C9391EB003259B3 /* GreatCircleTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreatCircleTestCase.m; sourceTree = "<group>"; };
 		2BDEB3341C989D18003259B3 /* MapquestSatelliteTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapquestSatelliteTestCase.h; sourceTree = "<group>"; };
 		2BDEB3351C989D18003259B3 /* MapquestSatelliteTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapquestSatelliteTestCase.m; sourceTree = "<group>"; };
+		2BE53AE81D258FE800B60FAD /* WhirlyGlobeMaplyComponent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WhirlyGlobeMaplyComponent.xcodeproj; path = "../WhirlyGlobe-MaplyComponent/WhirlyGlobeMaplyComponent.xcodeproj"; sourceTree = "<group>"; };
+		2BE53AF21D258FEE00B60FAD /* libWhirlyGlobeLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWhirlyGlobeLib.a; path = "../../../../Library/Developer/Xcode/DerivedData/AutoTester-cizypwfkufgyahcoralvsbxjvvew/Build/Products/Debug-iphonesimulator/libWhirlyGlobeLib.a"; sourceTree = "<group>"; };
 		2BEA7D701CC54A0A004A0B38 /* MapjamVectorTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapjamVectorTestCase.swift; sourceTree = "<group>"; };
 		2BEA7D721CC54A95004A0B38 /* MapjamSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapjamSource.h; sourceTree = "<group>"; };
 		2BEA7D731CC54A95004A0B38 /* MapjamSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapjamSource.m; sourceTree = "<group>"; };
-		2BEA7D761CC54DBB004A0B38 /* mapjam-street-map.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "mapjam-street-map.json"; path = "../../resources/mapjam vectors/mapjam-street-map.json"; sourceTree = "<group>"; };
+		2BFC7E4F1D132DCB0040E2A3 /* ScreenMarkersTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenMarkersTestCase.h; sourceTree = "<group>"; };
+		2BFC7E501D132DCB0040E2A3 /* ScreenMarkersTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenMarkersTestCase.m; sourceTree = "<group>"; };
 		7DCA6760F1FB2455FF49EA9D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		88019FA71B8F7AB800674B00 /* WhirlyGlobe-MaplyComponent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "WhirlyGlobe-MaplyComponent.xcodeproj"; path = "../WhirlyGlobe-MaplyComponent/WhirlyGlobe-MaplyComponent.xcodeproj"; sourceTree = "<group>"; };
 		8810B2D11BA9D45F00446CE3 /* MaplyTesterBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaplyTesterBridge.h; sourceTree = "<group>"; };
 		88231C781BA784BC00A95F2B /* ConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigViewController.xib; sourceTree = "<group>"; };
 		883DF6F11C1CE164000756E9 /* AnimatedBasemapTestCase-globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AnimatedBasemapTestCase-globe.png"; sourceTree = "<group>"; };
@@ -1025,6 +1044,11 @@
 		88FF5DF21BC31D95002F15CE /* tl_2013_06075_roads.shp */ = {isa = PBXFileReference; lastKnownFileType = file; path = tl_2013_06075_roads.shp; sourceTree = "<group>"; };
 		88FF5DF31BC31D95002F15CE /* tl_2013_06075_roads.shx */ = {isa = PBXFileReference; lastKnownFileType = file; path = tl_2013_06075_roads.shx; sourceTree = "<group>"; };
 		88FF5DF41BC31D95002F15CE /* tl_2013_06075_roads.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = tl_2013_06075_roads.sqlite; sourceTree = "<group>"; };
+		8F4D91DA1CDFA7DE00F68045 /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = globe.png; path = AutoTester/icons/globe.png; sourceTree = "<group>"; };
+		8F4D91DB1CDFA7DE00F68045 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = AutoTester/icons/map.png; sourceTree = "<group>"; };
+		8FC34D0C1CE7218E00BEB7C4 /* DownloadResourceOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadResourceOperation.h; sourceTree = "<group>"; };
+		8FC34D0D1CE7218E00BEB7C4 /* DownloadResourceOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadResourceOperation.m; sourceTree = "<group>"; };
+		8FE129181CDFB3B8004744FC /* TestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		D8200C8F1BE92B2F00B22CF5 /* WideVectorsTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WideVectorsTestCase.h; sourceTree = "<group>"; };
 		D8200C901BE92B2F00B22CF5 /* WideVectorsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WideVectorsTestCase.m; sourceTree = "<group>"; };
 		D8200C971BE93E6E00B22CF5 /* StarsSunTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarsSunTestCase.swift; sourceTree = "<group>"; };
@@ -1041,8 +1065,6 @@
 		D8341A6F1BE2C8D200411A46 /* VectorsTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorsTestCase.h; sourceTree = "<group>"; };
 		D8341A701BE2C8D200411A46 /* VectorsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VectorsTestCase.m; sourceTree = "<group>"; };
 		D8341A721BE2DFE100411A46 /* ScreenLabelsTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenLabelsTestCase.swift; sourceTree = "<group>"; };
-		D8341A741BE2E89E00411A46 /* ScreenMarkersTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenMarkersTestCase.h; sourceTree = "<group>"; };
-		D8341A751BE2E89E00411A46 /* ScreenMarkersTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenMarkersTestCase.m; sourceTree = "<group>"; };
 		D84433E61C14A46100A52117 /* NASAGIBSTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NASAGIBSTestCase.swift; sourceTree = "<group>"; };
 		D84433E91C14E4E700A52117 /* CartoDBTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartoDBTestCase.h; sourceTree = "<group>"; };
 		D84433EA1C14E4E700A52117 /* CartoDBTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartoDBTestCase.m; sourceTree = "<group>"; };
@@ -1090,7 +1112,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88019FAE1B8F7D6D00674B00 /* libWhirlyGlobe-MaplyComponent.a in Frameworks */,
+				2BE53AF41D25901300B60FAD /* WhirlyGlobeMaplyComponent.framework in Frameworks */,
+				2BE53AF31D258FEE00B60FAD /* libWhirlyGlobeLib.a in Frameworks */,
 				88E4B8F51B83B9850050D21B /* libsqlite3.dylib in Frameworks */,
 				88E4B8F31B83B97D0050D21B /* libxml2.dylib in Frameworks */,
 				88E4B8F11B83B9760050D21B /* libz.dylib in Frameworks */,
@@ -1122,28 +1145,23 @@
 			name = "wide vectors";
 			sourceTree = "<group>";
 		};
-		2BEA7D751CC54D5C004A0B38 /* Mapjam vectors */ = {
+		2BE53AE91D258FE800B60FAD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2BEA7D761CC54DBB004A0B38 /* mapjam-street-map.json */,
+				2BE53AEF1D258FE800B60FAD /* WhirlyGlobeMaplyComponent.framework */,
+				2BE53AF11D258FE800B60FAD /* WhirlyGlobeMaplyComponentTests.xctest */,
 			);
-			name = "Mapjam vectors";
+			name = Products;
 			sourceTree = "<group>";
 		};
 		3651D5D283D23F0C2EFDE845 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2BE53AF21D258FEE00B60FAD /* libWhirlyGlobeLib.a */,
+				2BE53AE81D258FE800B60FAD /* WhirlyGlobeMaplyComponent.xcodeproj */,
 				1F05A4FB888D188E680287F5 /* Pods.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		88019FA81B8F7AB800674B00 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				88019FAD1B8F7AB800674B00 /* libWhirlyGlobe-MaplyComponent.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		886FCCBC1BA73B1400494BB0 /* Fameworks */ = {
@@ -1264,8 +1282,8 @@
 				2B392B6F1C5AC59D001EE40B /* RunwayBuilderTestCase.h */,
 				2B392B701C5AC59D001EE40B /* RunwayBuilderTestCase.m */,
 				D8341A721BE2DFE100411A46 /* ScreenLabelsTestCase.swift */,
-				D8341A741BE2E89E00411A46 /* ScreenMarkersTestCase.h */,
-				D8341A751BE2E89E00411A46 /* ScreenMarkersTestCase.m */,
+				2BFC7E4F1D132DCB0040E2A3 /* ScreenMarkersTestCase.h */,
+				2BFC7E501D132DCB0040E2A3 /* ScreenMarkersTestCase.m */,
 				D8200C9D1BE9516300B22CF5 /* ShapesTestCase.h */,
 				D8200C9E1BE9516300B22CF5 /* ShapesTestCase.m */,
 				88BF115E1BCDA9730002205E /* StamenWatercolorRemote.swift */,
@@ -1277,6 +1295,10 @@
 				D8341A701BE2C8D200411A46 /* VectorsTestCase.m */,
 				D8200C8F1BE92B2F00B22CF5 /* WideVectorsTestCase.h */,
 				D8200C901BE92B2F00B22CF5 /* WideVectorsTestCase.m */,
+				2BC2DCCB1D1F4CE20088D350 /* ShapefileTestCase.h */,
+				2BC2DCCC1D1F4CE20088D350 /* ShapefileTestCase.m */,
+				2BC2DCEE1D2345AF0088D350 /* PagingLayerTestCase.h */,
+				2BC2DCEF1D2345AF0088D350 /* PagingLayerTestCase.m */,
 			);
 			path = testCases;
 			sourceTree = "<group>";
@@ -1288,7 +1310,6 @@
 				886FCCBC1BA73B1400494BB0 /* Fameworks */,
 				88E4B8C01B83B6AB0050D21B /* Products */,
 				88FF5BDF1BC31D3C002F15CE /* Resources */,
-				88019FA71B8F7AB800674B00 /* WhirlyGlobe-MaplyComponent.xcodeproj */,
 				ED1A80793ACB9856E5E252F3 /* Pods */,
 				3651D5D283D23F0C2EFDE845 /* Frameworks */,
 			);
@@ -1327,6 +1348,9 @@
 				D8E12ECF1BDEA2E400BB7BC7 /* WeatherShader.swift */,
 				D880112D1BFD16A900606EC6 /* DropboxViewController.swift */,
 				D880112E1BFD16A900606EC6 /* DropboxViewController.xib */,
+				8FE129181CDFB3B8004744FC /* TestCell.swift */,
+				8FC34D0C1CE7218E00BEB7C4 /* DownloadResourceOperation.h */,
+				8FC34D0D1CE7218E00BEB7C4 /* DownloadResourceOperation.m */,
 			);
 			path = AutoTester;
 			sourceTree = "<group>";
@@ -1346,6 +1370,7 @@
 		88FF5BDF1BC31D3C002F15CE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8F4D91D81CDFA7C000F68045 /* Icons */,
 				2B1C26511C9100A500C71B0A /* France.mbtiles */,
 				2B6953671C7E67DD007FC51E /* colorramp.png */,
 				D84AA5961C1A26C100413B76 /* OSTN02_NTv2.gsb */,
@@ -1359,7 +1384,6 @@
 				88FF5BFC1BC31D6D002F15CE /* maki icons */,
 				88FF5C671BC31D6D002F15CE /* mapbox vectors */,
 				88FF5C691BC31D6D002F15CE /* mapzen vectors */,
-				2BEA7D751CC54D5C004A0B38 /* Mapjam vectors */,
 				88FF5C6C1BC31D6D002F15CE /* models */,
 				88FF5C711BC31D6D002F15CE /* stars */,
 				88FF5BE11BC31D53002F15CE /* map_pin.png */,
@@ -1835,6 +1859,15 @@
 			path = ../../resources/vectors/sf_roads;
 			sourceTree = "<group>";
 		};
+		8F4D91D81CDFA7C000F68045 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				8F4D91DA1CDFA7DE00F68045 /* globe.png */,
+				8F4D91DB1CDFA7DE00F68045 /* map.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		D8F53BD61C0275A1004854D6 /* Dropbox Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1903,8 +1936,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 88019FA81B8F7AB800674B00 /* Products */;
-					ProjectRef = 88019FA71B8F7AB800674B00 /* WhirlyGlobe-MaplyComponent.xcodeproj */;
+					ProductGroup = 2BE53AE91D258FE800B60FAD /* Products */;
+					ProjectRef = 2BE53AE81D258FE800B60FAD /* WhirlyGlobeMaplyComponent.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1915,11 +1948,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		88019FAD1B8F7AB800674B00 /* libWhirlyGlobe-MaplyComponent.a */ = {
+		2BE53AEF1D258FE800B60FAD /* WhirlyGlobeMaplyComponent.framework */ = {
 			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libWhirlyGlobe-MaplyComponent.a";
-			remoteRef = 88019FAC1B8F7AB800674B00 /* PBXContainerItemProxy */;
+			fileType = wrapper.framework;
+			path = WhirlyGlobeMaplyComponent.framework;
+			remoteRef = 2BE53AEE1D258FE800B60FAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2BE53AF11D258FE800B60FAD /* WhirlyGlobeMaplyComponentTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = WhirlyGlobeMaplyComponentTests.xctest;
+			remoteRef = 2BE53AF01D258FE800B60FAD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1974,7 +2014,6 @@
 				88FF5EC21BC31D95002F15CE /* SSD.geojson in Resources */,
 				88FF5E6F1BC31D95002F15CE /* KOR.geojson in Resources */,
 				88FF5E341BC31D95002F15CE /* DOM.geojson in Resources */,
-				2BEA7D771CC54DBB004A0B38 /* mapjam-street-map.json in Resources */,
 				2B4BA6D11C83A22000DC1562 /* rightbend.geojson in Resources */,
 				883DF7371C1CE164000756E9 /* ScreenLabelsTestCase-globe.png in Resources */,
 				88FF5E4D1BC31D95002F15CE /* GNQ.geojson in Resources */,
@@ -2065,6 +2104,7 @@
 				88FF5E831BC31D95002F15CE /* MEX.geojson in Resources */,
 				88FF5EEC1BC31D95002F15CE /* ZMB.geojson in Resources */,
 				88FF5CA61BC31D6D002F15CE /* fire-station-24@2x.png in Resources */,
+				8F4D91DC1CDFA7DE00F68045 /* globe.png in Resources */,
 				2B4BA6D31C83A22000DC1562 /* sawtooth.geojson in Resources */,
 				88FF5CA01BC31D6D002F15CE /* dog-park-24@2x.png in Resources */,
 				88FF5E001BC31D95002F15CE /* ATA.geojson in Resources */,
@@ -2241,6 +2281,7 @@
 				88FF5E191BC31D95002F15CE /* BVT.geojson in Resources */,
 				88FF5E711BC31D95002F15CE /* LAO.geojson in Resources */,
 				883DF7361C1CE164000756E9 /* NASAGIBSTestCase-map.png in Resources */,
+				8F4D91DD1CDFA7DE00F68045 /* map.png in Resources */,
 				88FF5E2B1BC31D95002F15CE /* CUW.geojson in Resources */,
 				88FF5E511BC31D95002F15CE /* GTM.geojson in Resources */,
 				88FF5CAB1BC31D6D002F15CE /* harbor-24@2x.png in Resources */,
@@ -2447,6 +2488,7 @@
 				D8E12ED01BDEA2E400BB7BC7 /* WeatherShader.swift in Sources */,
 				88BF11521BCD9BF70002205E /* MaplyTestResult.m in Sources */,
 				D8228AA61BE785E1001D6914 /* MovingScreenMarkers.m in Sources */,
+				8FC34D0E1CE7218E00BEB7C4 /* DownloadResourceOperation.m in Sources */,
 				D8DCCCAC1BDC1A1200BA3866 /* CesiumElevationTestCase.m in Sources */,
 				88BF11491BCD3DA40002205E /* MaplyTestCase.m in Sources */,
 				88BF11591BCDA3960002205E /* ResultCell.swift in Sources */,
@@ -2463,8 +2505,10 @@
 				D84AA5941C1A1C9700413B76 /* BNGCustomMapTestCase.swift in Sources */,
 				2BDEB3141C9391EB003259B3 /* GreatCircleTestCase.m in Sources */,
 				88BF11571BCDA1BB0002205E /* ResultsViewController.swift in Sources */,
+				8FE129191CDFB3B8004744FC /* TestCell.swift in Sources */,
 				D84AA5991C1A2B9800413B76 /* BNGTestCase.swift in Sources */,
 				D8DCCC9F1BDB89A900BA3866 /* FullScreenViewController.swift in Sources */,
+				2BC2DCF01D2345AF0088D350 /* PagingLayerTestCase.m in Sources */,
 				88BF115F1BCDA9730002205E /* StamenWatercolorRemote.swift in Sources */,
 				886FCCCD1BA74D1200494BB0 /* ConfigViewController.swift in Sources */,
 				2B6953651C7E601A007FC51E /* AnimatedColorRampTestCase.m in Sources */,
@@ -2473,6 +2517,7 @@
 				E5679F4A1CB72DE800369A15 /* FindHeightTestCase.m in Sources */,
 				D8200C911BE92B2F00B22CF5 /* WideVectorsTestCase.m in Sources */,
 				D84AA59C1C1A2E9900413B76 /* ElevationLocalDatabase.m in Sources */,
+				2BFC7E511D132DCB0040E2A3 /* ScreenMarkersTestCase.m in Sources */,
 				D8200CA11BE9563F00B22CF5 /* StickersTestCase.swift in Sources */,
 				88BF115D1BCDA9530002205E /* GeographyClassTestCase.m in Sources */,
 				E57E78CA1C936B8400C468C6 /* AerisWeatherTestCase.m in Sources */,
@@ -2481,13 +2526,13 @@
 				2BDEB3361C989D18003259B3 /* MapquestSatelliteTestCase.m in Sources */,
 				D8F2FE2E1BE7CF310058A310 /* ModelsTestCase.swift in Sources */,
 				D8228AA81BE786BE001D6914 /* ClusteredMarkersTestCase.swift in Sources */,
+				2BC2DCCD1D1F4CE20088D350 /* ShapefileTestCase.m in Sources */,
 				D8F2FE271BE7BD630058A310 /* LabelsTestCase.m in Sources */,
 				E5679F4E1CB7669400369A15 /* FullAnimationTest.m in Sources */,
 				D8F2FE2C1BE7CAD30058A310 /* MegaMarkersTestCase.m in Sources */,
 				D8341A711BE2C8D200411A46 /* VectorsTestCase.m in Sources */,
 				D8200C9F1BE9516300B22CF5 /* ShapesTestCase.m in Sources */,
 				2BEA7D711CC54A0A004A0B38 /* MapjamVectorTestCase.swift in Sources */,
-				D8341A761BE2E89E00411A46 /* ScreenMarkersTestCase.m in Sources */,
 				D8E12ED41BDEAC5900BB7BC7 /* MapBoxVectorTestCase.m in Sources */,
 				E5679F491CB72DE800369A15 /* WMSTestCase.m in Sources */,
 				D8200C981BE93E6E00B22CF5 /* StarsSunTestCase.swift in Sources */,
@@ -2608,6 +2653,7 @@
 			baseConfigurationReference = 7DCA6760F1FB2455FF49EA9D /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stephen Gifford (G7S7JV2SU3)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -2630,6 +2676,7 @@
 			baseConfigurationReference = 180B97B59AC5F39A42ADCB62 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stephen Gifford (G7S7JV2SU3)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
