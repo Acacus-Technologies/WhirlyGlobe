@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, MaplyVectorObjectType) {
     @details All vectors should have some set of attribution.  If there's more than one vector feature here, we'll return the attributes on the first one.
     @details The attribution is returned as an NSDictionary and, though you can modify it, you probably shouldn't.
   */
-@property (nonatomic,readonly) NSMutableDictionary *__nullable attributes;
+@property (nonatomic,readonly) NSMutableDictionary *__nonnull attributes;
 
 /** @brief Parse vector data from geoJSON.
     @details Returns one object to represent the whole thing, which might include multiple different vectors.  This version uses the faster JSON parser.
@@ -279,6 +279,11 @@ typedef NS_ENUM(NSInteger, MaplyVectorObjectType) {
   */
 - (bool)boundingBoxLL:(MaplyCoordinate *__nonnull)ll ur:(MaplyCoordinate *__nonnull)ur;
 
+/** @brief Calculate the area of the outer loops.
+    @details This returns the area of the outer loops of any areal features in the VectorObject.
+  */
+- (double)areaOfOuterLoops;
+
 /** @brief Convert a feature to an NSArray of NSArrays of CLLocation points.
     @details This is intended for areal features.  It will convert those coordinates to CLLocation values and return them.  Obviously this is intended for things that need CLLocation values.
     @return Returns an NSArray of NSArray's which then contain CLLocation points.
@@ -317,6 +322,12 @@ typedef NS_ENUM(NSInteger, MaplyVectorObjectType) {
   */
 - (MaplyVectorObject *__nullable)clipToGrid:(CGSize)gridSize;
 
+/**
+    @brief Clip the given (probably areal) features to the given bounding box.
+    @details This will run through the loops of the areal features and clip them against a bounding box.
+    @details The bounding box should be in the same coordinate system as the grid, probably radians.
+    @return The new areal features will be clipped along the bounding box.
+  */
 - (MaplyVectorObject *__nullable)clipToMbr:(MaplyCoordinate)ll upperRight:(MaplyCoordinate)ur;
 
 @end

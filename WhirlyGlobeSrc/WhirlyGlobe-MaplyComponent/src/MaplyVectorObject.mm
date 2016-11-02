@@ -223,7 +223,7 @@ public:
 		coords[i / 2] = MaplyCoordinateMakeWithDegrees(x, y);
 	}
 
-	self = [self initWithLineString:coords numCoords:[inCoords count]/2 attributes:attr];
+	self = [self initWithLineString:coords numCoords:(int)[inCoords count]/2 attributes:attr];
 
 	free(coords);
 
@@ -779,7 +779,7 @@ public:
         
         // Now we'll walk along, looking for the middle
         float lenSoFar = 0.0;
-        for (unsigned int ii=0;ii<pts.size();ii++)
+        for (unsigned int ii=0;ii<pts.size()-1;ii++)
         {
             Point2f &pt0 = pts[ii],&pt1 = pts[ii+1];
             float len = (pt1-pt0).norm();
@@ -811,7 +811,7 @@ public:
         
         // Now we'll walk along, looking for the middle
         float lenSoFar = 0.0;
-        for (unsigned int ii=0;ii<pts.size();ii++)
+        for (unsigned int ii=0;ii<pts.size()-1;ii++)
         {
             Point3d &pt0 = pts[ii],&pt1 = pts[ii+1];
             float len = (pt1-pt0).norm();
@@ -1164,6 +1164,22 @@ public:
 	return bounds;
 }
 
+- (double)areaOfOuterLoops
+{
+    // Find the loop with the largest area
+    double area = 0.0;
+    for (ShapeSet::iterator it = _shapes.begin();it != _shapes.end();++it)
+    {
+        VectorArealRef areal = std::dynamic_pointer_cast<VectorAreal>(*it);
+        if (areal && areal->loops.size() > 0)
+        {
+            area = CalcLoopArea(areal->loops[0]);
+        }
+    }
+    
+    return area;
+}
+
 
 - (bool)boundingBoxLL:(MaplyCoordinate *)ll ur:(MaplyCoordinate *)ur
 {
@@ -1408,17 +1424,14 @@ public:
         VectorArealRef ar = std::dynamic_pointer_cast<VectorAreal>(*it);
         if (ar)
         {
-            for (int ii=0;ii<ar->loops.size();ii++)
+            std::vector<VectorRing> newLoops;
+            ClipLoopsToGrid(ar->loops, Point2f(0.0,0.0), Point2f(gridSize.width,gridSize.height), newLoops);
+            for (unsigned int jj=0;jj<newLoops.size();jj++)
             {
-                std::vector<VectorRing> newLoops;
-                ClipLoopToGrid(ar->loops[ii], Point2f(0.0,0.0), Point2f(gridSize.width,gridSize.height), newLoops);
-                for (unsigned int jj=0;jj<newLoops.size();jj++)
-                {
-                    VectorArealRef newAr = VectorAreal::createAreal();
-                    newAr->setAttrDict(ar->getAttrDict());
-                    newAr->loops.push_back(newLoops[jj]);
-                    newVec->_shapes.insert(newAr);
-                }
+                VectorArealRef newAr = VectorAreal::createAreal();
+                newAr->setAttrDict(ar->getAttrDict());
+                newAr->loops.push_back(newLoops[jj]);
+                newVec->_shapes.insert(newAr);
             }
         }
     }

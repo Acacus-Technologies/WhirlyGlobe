@@ -17,6 +17,7 @@
 {
     self = [super init];
     colors = [NSMutableArray array];
+    _stretch = true;
     
     return self;
 }
@@ -28,6 +29,17 @@
     float blue = (((hexColor) >> 0) & 0xFF)/255.0;
     
     UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+    [colors addObject:color];
+}
+
+- (void)addHexColorWithAlpha:(int)hexColor
+{
+    float alpha = (((hexColor) >> 24) & 0xFF)/255.0;
+    float red = (((hexColor) >> 16) & 0xFF)/255.0;
+    float green = (((hexColor) >> 8) & 0xFF)/255.0;
+    float blue = (((hexColor) >> 0) & 0xFF)/255.0;
+        
+    UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
     [colors addObject:color];
 }
 
@@ -48,9 +60,9 @@
     int aIdx = floor(pos);
     int bIdx = ceil(pos);
     if (bIdx >= [colors count])
-        bIdx = [colors count]-1;
+        bIdx = (int)[colors count]-1;
     if (aIdx >= [colors count])
-        aIdx = [colors count]-1;
+        aIdx = (int)[colors count]-1;
     float t = pos-aIdx;
     
     UIColor *a = [colors objectAtIndex:aIdx];
@@ -81,7 +93,15 @@
     // Work our way through the pixels by height
     for (unsigned int xx=0;xx<width;xx++)
     {
-        UIColor *color = [self interpColor:(xx/(float)(width-1))];
+        UIColor *color = nil;
+        if (_stretch)
+            color = [self interpColor:(xx/(float)(width-1))];
+        else {
+            if (xx >= [colors count])
+                color = [UIColor clearColor];
+            else
+                color = [colors objectAtIndex:xx];
+        }
         [color setFill];
         CGContextFillRect(ctx, CGRectMake(xx, 0.0, 1, height));
     }

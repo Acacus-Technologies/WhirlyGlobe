@@ -38,7 +38,6 @@
 #import "VectorData.h"
 #import "MaplyMBTileSource.h"
 #import "MapnikStyleSet.h"
-#import "MapboxVectorStyleSet.h"
 
 using namespace Eigen;
 using namespace WhirlyKit;
@@ -427,12 +426,14 @@ static double MAX_EXTENT = 20037508.342789244;
                 styleSet = mapnikStyleSet;
             }
             break;
-            case MapnikMapboxGLStyle:
-            {
-                MaplyMapboxVectorStyleSet *mapboxStyleSet = [[MaplyMapboxVectorStyleSet alloc] initWithJSON:styleData viewC:viewC];
-                styleSet = mapboxStyleSet;
-            }
+//            case MapnikMapboxGLStyle:
+//            {
+//                MaplyMapboxVectorStyleSet *mapboxStyleSet = [[MaplyMapboxVectorStyleSet alloc] initWithJSON:styleData viewC:viewC];
+//                styleSet = mapboxStyleSet;
+//            }
             break;
+            default:
+                break;
         }
         
         MapboxVectorTiles *vecTiles = [[MapboxVectorTiles alloc] initWithTileSource:tileSource style:styleSet viewC:viewC];

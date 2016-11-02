@@ -7,7 +7,7 @@
 //
 
 #import "PagingLayerTestCase.h"
-#import "MapquestSatelliteTestCase.h"
+#import "CartoDBLightTestCase.h"
 
 @implementation PagingLayerTestCase
 {
@@ -26,7 +26,7 @@
 
 - (void)setUpWithGlobe:(WhirlyGlobeViewController *)globeVC
 {
-    MapquestSatelliteTestCase *baseLayer = [[MapquestSatelliteTestCase alloc] init];
+    CartoDBLightTestCase *baseLayer = [[CartoDBLightTestCase alloc] init];
     [baseLayer setUpWithGlobe:globeVC];
     
     [self setupPagingLayer: globeVC];
@@ -35,7 +35,7 @@
 
 - (void)setUpWithMap:(MaplyViewController *)mapVC
 {
-    MapquestSatelliteTestCase *baseLayer = [[MapquestSatelliteTestCase alloc] init];
+    CartoDBLightTestCase *baseLayer = [[CartoDBLightTestCase alloc] init];
     [baseLayer setUpWithMap:mapVC];
     
     [self setupPagingLayer: mapVC];
@@ -48,8 +48,9 @@
     MaplyQuadPagingLayer *quadLayer = [[MaplyQuadPagingLayer alloc] initWithCoordSystem:coordSys delegate:tileSource];
     quadLayer.singleLevelLoading = true;
     quadLayer.useTargetZoomLevel = true;
-    quadLayer.importance = 128*128;
+    quadLayer.importance = 256*256;
     quadLayer.useParentTileBounds = false;
+    quadLayer.maxTiles = 100;
     [baseLayer addLayer:quadLayer];
 }
 

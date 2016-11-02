@@ -206,6 +206,8 @@ void LayoutManager::getScreenSpaceObjects(const SelectionManager::PlacementInfo 
             ScreenSpaceObjectLocation ssObj;
             ssObj.shapeIDs.push_back(entry->obj.getId());
             ssObj.dispLoc = entry->obj.worldLoc;
+            ssObj.rotation = entry->obj.rotation;
+            ssObj.keepUpright = entry->obj.keepUpright;
             ssObj.offset = entry->offset;
             ssObj.pts = entry->obj.selectPts;
             ssObj.mbr.addPoints(entry->obj.selectPts);
@@ -287,43 +289,45 @@ bool LayoutManager::calcScreenPt(CGPoint &objPt,LayoutObjectEntry *layoutObj,Whi
     
     return isInside;
 }
-    
-Matrix2d LayoutManager::calcScreenRot(float &screenRot,WhirlyKitViewState *viewState,WhirlyGlobeViewState *globeViewState,LayoutObjectEntry *layoutObj,const CGPoint &objPt,const Matrix4d &modelTrans,const Point2f &frameBufferSize)
+
+Matrix2d LayoutManager::calcScreenRot(float &screenRot,WhirlyKitViewState *viewState,WhirlyGlobeViewState *globeViewState,ScreenSpaceObject *ssObj,const CGPoint &objPt,const Matrix4d &modelTrans,const Matrix4d &normalMat,const Point2f &frameBufferSize)
 {
-    Point3d norm,right,up;
-    Matrix2d screenRotMat;
+    // Switch from counter-clockwise to clockwise
+    double rot = 2*M_PI-ssObj->rotation;
     
-    if (globeViewState)
+    Point3d upVec,northVec,eastVec;
+    if (!globeViewState)
     {
-        Point3d simpleUp(0,0,1);
-        norm = layoutObj->obj.worldLoc;
-        norm.normalize();
-        right = simpleUp.cross(norm);
-        up = norm.cross(right);
-        right.normalize();
-        up.normalize();
+        upVec = Point3d(0,0,1);
+        northVec = Point3d(0,1,0);
+        eastVec = Point3d(1,0,0);
     } else {
-        right = Point3d(1,0,0);
-        norm = Point3d(0,0,1);
-        up = Point3d(0,1,0);
+        Point3d worldLoc = ssObj->getWorldLoc();
+        upVec = worldLoc.normalized();
+        // Vector pointing north
+        northVec = Point3d(-worldLoc.x(),-worldLoc.y(),1.0-worldLoc.z());
+        eastVec = northVec.cross(upVec);
+        northVec = upVec.cross(eastVec);
     }
-    // Note: Check if the axes made any sense.  We might be at a pole.
-    Point3d rightDir = right * sinf(layoutObj->obj.rotation);
-    Point3d upDir = up * cosf(layoutObj->obj.rotation);
     
-    Point3d outPt = rightDir * 1.0 + upDir * 1.0 + layoutObj->obj.worldLoc;
-    CGPoint outScreenPt;
-    outScreenPt = [viewState pointOnScreenFromDisplay:outPt transform:&modelTrans frameSize:frameBufferSize];
-    screenRot = M_PI/2.0-atan2f(objPt.y-outScreenPt.y,outScreenPt.x-objPt.x);
+    // This vector represents the rotation in world space
+    Point3d rotVec = eastVec * sin(rot) + northVec * cos(rot);
+    
+    // Project down into screen space
+    Vector4d projRot = normalMat * Vector4d(rotVec.x(),rotVec.y(),rotVec.z(),0.0);
+    
+    // Use the resulting x & y
+    screenRot = atan2(projRot.y(),projRot.x())-M_PI/2.0;
     // Keep the labels upright
-    if (layoutObj->obj.keepUpright)
+    if (ssObj->keepUpright)
         if (screenRot > M_PI/2 && screenRot < 3*M_PI/2)
             screenRot = screenRot + M_PI;
-            screenRotMat = Eigen::Rotation2Dd(screenRot);
+    Matrix2d screenRotMat;
+    screenRotMat = Eigen::Rotation2Dd(screenRot);
     
     return screenRotMat;
 }
-    
+
 // Do the actual layout logic.  We'll modify the offset and on value in place.
 bool LayoutManager::runLayoutRules(WhirlyKitViewState *viewState,std::vector<ClusterEntry> &clusterEntries,std::vector<ClusterGenerator::ClusterClassParams> &clusterParams)
 {
@@ -347,6 +351,7 @@ bool LayoutManager::runLayoutRules(WhirlyKitViewState *viewState,std::vector<Clu
     Matrix4d modelTrans = viewState.fullMatrices[0];
     Matrix4f fullMatrix4f = Matrix4dToMatrix4f(viewState.fullMatrices[0]);
     Matrix4f fullNormalMatrix4f = Matrix4dToMatrix4f(viewState.fullNormalMatrices[0]);
+    Matrix4d normalMat = viewState.fullMatrices[0].inverse().transpose();
     
     // Turn everything off and sort by importance
     for (LayoutEntrySet::iterator it = layoutObjects.begin();
@@ -457,7 +462,7 @@ bool LayoutManager::runLayoutRules(WhirlyKitViewState *viewState,std::vector<Clu
                     float screenRot = 0.0;
                     Matrix2d screenRotMat;
                     if (entry->obj.rotation != 0.0)
-                        screenRotMat = calcScreenRot(screenRot,viewState,globeViewState,entry,objPt,modelTrans,frameBufferSize);
+                        screenRotMat = calcScreenRot(screenRot,viewState,globeViewState,&entry->obj,objPt,modelTrans,normalMat,frameBufferSize);
                     
                     // Rotate the rectangle
                     std::vector<Point2d> objPts(4);
@@ -469,10 +474,9 @@ bool LayoutManager::runLayoutRules(WhirlyKitViewState *viewState,std::vector<Clu
                         Point2d center(objPt.x,objPt.y);
                         for (unsigned int ii=0;ii<4;ii++)
                         {
-                            Point2d &thisObjPt = objPts[ii];
-                            thisObjPt = entry->obj.layoutPts[ii];
-                            thisObjPt = screenRotMat * thisObjPt;
-                            thisObjPt = Point2d(thisObjPt.x()*resScale,thisObjPt.y()*resScale)+center;
+                            Point2d thisObjPt = entry->obj.layoutPts[ii];
+                            Point2d offPt = screenRotMat * Point2d(thisObjPt.x()*resScale,thisObjPt.y()*resScale);
+                            objPts[ii] = Point2d(offPt.x(),-offPt.y()) + center;
                         }
                     }
 
@@ -590,7 +594,7 @@ bool LayoutManager::runLayoutRules(WhirlyKitViewState *viewState,std::vector<Clu
             
             // Deal with the rotation
             if (layoutObj->obj.rotation != 0.0)
-                screenRotMat = calcScreenRot(screenRot,viewState,globeViewState,layoutObj,objPt,modelTrans,frameBufferSize);
+                screenRotMat = calcScreenRot(screenRot,viewState,globeViewState,&layoutObj->obj,objPt,modelTrans,normalMat,frameBufferSize);
             
             // Now for the overlap checks
             if (isActive)
@@ -656,10 +660,15 @@ bool LayoutManager::runLayoutRules(WhirlyKitViewState *viewState,std::vector<Clu
                             for (unsigned int oi=0;oi<4;oi++)
                             {
                                 Point2d &thisObjPt = objPts[oi];
-                                thisObjPt = screenRotMat * thisObjPt;
-                                thisObjPt = Point2d(thisObjPt.x()*resScale,thisObjPt.y()*resScale)+center;
+                                Point2d offPt = screenRotMat * Point2d(thisObjPt.x()*resScale,thisObjPt.y()*resScale);
+                                thisObjPt = Point2d(offPt.x(),-offPt.y()) + center;
                             }
                         }
+                        
+//                        NSLog(@"Center pt = (%f,%f), orient = %d",objPt.x,objPt.y,orient);
+//                        NSLog(@"Layout Pts");
+//                        for (unsigned int xx=0;xx<objPts.size();xx++)
+//                            NSLog(@"  (%f,%f)\n",objPts[xx].x(),objPts[xx].y());
                         
                         // Now try it
                         if (overlapMan.addObject(objPts))
@@ -682,15 +691,15 @@ bool LayoutManager::runLayoutRules(WhirlyKitViewState *viewState,std::vector<Clu
         
         // See if we've changed any of the state
         layoutObj->changed = (layoutObj->currentEnable != isActive);
-        if (!layoutObj->changed && layoutObj->newEnable &&
-            (layoutObj->offset.x() != objOffset.x() || layoutObj->offset.y() != objOffset.y()))
+        if (!layoutObj->changed && (layoutObj->newEnable ||
+            (layoutObj->offset.x() != objOffset.x() || layoutObj->offset.y() != -objOffset.y())))
         {
             layoutObj->changed = true;
         }
         hadChanges |= layoutObj->changed;
         layoutObj->newEnable = isActive;
         layoutObj->newCluster = -1;
-        layoutObj->offset = objOffset;
+        layoutObj->offset = Point2d(objOffset.x(),-objOffset.y());
     }
     
 //    NSLog(@"----Finished layout----");

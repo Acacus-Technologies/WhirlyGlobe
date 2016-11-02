@@ -363,7 +363,10 @@ DynamicTextureAtlas::DynamicTextureAtlas(int texSize,int cellSize,GLenum format,
     
 DynamicTextureAtlas::~DynamicTextureAtlas()
 {
-    // It's up to the scene to actually delete the textures
+    // Clean up anything we might have left over
+    for (DynamicTextureSet::iterator it = textures.begin();it != textures.end(); ++it)
+        delete *it;
+
     textures.clear();
 }
     
@@ -432,6 +435,9 @@ bool DynamicTextureAtlas::addTexture(const std::vector<Texture *> &newTextures,i
             dynTexVec->push_back(dynTex);
             dynTex->createInGL(memManager);
         }
+        // Unfortunately, we have to flush here or run the risk of no one else seeing our texture
+//        glFlush();
+
 //        NSLog(@"Added dynamic texture %ld (%ld)",dynTex->getId(),textures.size());
         textures.insert(dynTexVec);
         DynamicTexture::Region thisRegion;
@@ -611,7 +617,7 @@ SimpleIdentity DynamicTextureAtlas::getTextureIDForFrame(SimpleIdentity baseTexI
     return EmptyIdentity;
 }
     
-void DynamicTextureAtlas::shutdown(ChangeSet &changes)
+void DynamicTextureAtlas::teardown(ChangeSet &changes)
 {
     for (DynamicTextureSet::iterator it = textures.begin(); it != textures.end(); ++it)
     {
