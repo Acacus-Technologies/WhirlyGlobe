@@ -109,7 +109,9 @@
 {
 	// create and prepare the controller
 	self.mapViewController = [[MaplyViewController alloc] initWithMapType:MaplyMapTypeFlat];
+    self.mapViewController.viewWrap = true;
     self.baseViewController = self.mapViewController;
+    self.mapViewController.delegate = self;
 	
 	MaplyCoordinateSystem *coordSys = [self customCoordSystem];
 	if (coordSys)

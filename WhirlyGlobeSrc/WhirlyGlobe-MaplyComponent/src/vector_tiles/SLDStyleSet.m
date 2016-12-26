@@ -41,12 +41,13 @@
 @implementation SLDStyleSet {
     NSMutableDictionary *_namedLayers;
     NSInteger symbolizerId;
+    NSURL *_baseURL;
     
 }
 
 
 /** @brief Constructs a SLDStyleSet object.
-    @details After constructing the SLDStyleSet object, call loadSldFile: or loadSldData: to parse the desired SLD document tree and create the corresponding symbolizers.
+    @details After constructing the SLDStyleSet object, call loadSldURL: or loadSldData:baseURL: to parse the desired SLD document tree and create the corresponding symbolizers.
     @param viewC The map or globe view controller.
     @param useLayerNames Whether to use names of NamedLayer elements as a criteria in matching styles.
  */
@@ -59,34 +60,40 @@
         self.tileStyleSettings.lineScale = [UIScreen mainScreen].scale;
         self.tileStyleSettings.dashPatternScale =  [UIScreen mainScreen].scale;
         self.tileStyleSettings.markerScale = [UIScreen mainScreen].scale;
+        self.tileStyleSettings.useWideVectors = true;
         symbolizerId = 0;
         self.symbolizers = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-
-- (void)loadSldFile:(NSString *__nonnull)filePath {
-    // Let's find it
-    NSString *fullPath = nil;
-    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath])
-        fullPath = filePath;
-    if (!fullPath)
-    {
-        NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        fullPath = [NSString stringWithFormat:@"%@/%@",docDir,filePath];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
-            fullPath = nil;
+/** @brief Load SLD document from the specified URL
+    @details Currently only file URLs are supported.
+    @param url The URL from which to load the SLD document.
+ */
+- (void)loadSldURL:(NSURL *__nullable)url {
+    if (!url)
+        url = [[NSBundle mainBundle] URLForResource:@"default" withExtension:@"sld"];
+    NSURL *baseURL = [url URLByDeletingLastPathComponent];
+    if ([url isFileURL]) {
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]])
+            url = [[NSBundle mainBundle] URLForResource:@"default" withExtension:@"sld"];
+        [self loadSldData:[NSData dataWithContentsOfURL:url] baseURL:baseURL];
+    } else {
+        // network URL
+        NSLog(@"Network SLD URLs not yet implemented.");
     }
-    if (!fullPath)
-        fullPath = [[NSBundle mainBundle] pathForResource:filePath ofType:@"sld"];
-    
-    return [self loadSldData:[[NSData alloc] initWithContentsOfFile:fullPath]];
 }
 
-
-
-- (void)loadSldData:(NSData *__nonnull)sldData {
+/** @brief Load SLD document from data
+    @details Load an SLD document from data.
+    @param sldData The SLD document
+    @param baseURL The base URL from which any external references (e.g. images) will be located.
+ */
+- (void)loadSldData:(NSData *__nonnull)sldData baseURL:(NSURL *__nonnull)baseURL {
+    
+    _baseURL = baseURL;
+ 
     NSError *error;
     DDXMLDocument *doc = [[DDXMLDocument alloc] initWithData:sldData options:0 error:&error];
     if (error) {
@@ -96,7 +103,7 @@
     }
     
     DDXMLElement *sldNode = [doc rootElement];
-    if (![[sldNode name] isEqualToString:@"StyledLayerDescriptor"]) {
+    if (![[sldNode localName] isEqualToString:@"StyledLayerDescriptor"]) {
         NSLog(@"Error getting unique StyledLayerDescriptor node.");
         return;
     }
@@ -111,6 +118,7 @@
                 _namedLayers[sldNamedLayer.name] = sldNamedLayer;
         }
     }
+
 }
 
 /** @brief Gets a single node for the provided element name.
@@ -120,9 +128,10 @@
     if (node.kind != DDXMLElementKind)
         return nil;
     DDXMLElement *element = (DDXMLElement *)node;
-    NSArray *matches = [element elementsForName:childName];
-    if (matches && matches.count == 1)
-        return matches[0];
+    for (DDXMLNode *child in [element children]) {
+        if ([[child localName] isEqualToString:childName])
+            return child;
+    }
     return nil;
 }
 
@@ -136,10 +145,6 @@
     
     NSError *error;
     
-    //DDXMLNode *nameNode = [self getSingleNodeForNode:namedLayerNode xpath:[NSString stringWithFormat:@"%@:%@", @"se", @"Name"] error:&error];
-    //DDXMLNode *nameNode = [self getSingleNodeForNode:namedLayerNode xpath:@"se:Name" error:&error];
-    
-    // The prefix is "se" in v1.1.0 but "sld" in v1.0.0.
     DDXMLNode *nameNode = [self getSingleChildNodeForNode:namedLayerNode childName:@"Name"];
     
     if (!nameNode) {
@@ -150,8 +155,6 @@
     }
     
     sldNamedLayer.name = [nameNode stringValue];
-    NSLog(@"layer %@ %@", [nameNode name], [nameNode stringValue]);
-    
     
     NSMutableArray *userStyles = [NSMutableArray array];
     NSArray *userStyleNodes = [namedLayerNode elementsForName:@"UserStyle"];
@@ -170,9 +173,8 @@
  @param  userStyleNode The DDXMLElement corresponding to the UserStyle element in the document tree.
  */
 - (SLDUserStyle *)loadUserStyleNode:(DDXMLElement *)userStyleNode {
-    NSLog(@"loadUserStyleNode");
+    NSError *error;
     SLDUserStyle *sldUserStyle = [[SLDUserStyle alloc] init];
-    // The prefix is "se" in v1.1.0 but "sld" in v1.0.0.
 
     DDXMLNode *nameNode = [self getSingleChildNodeForNode:userStyleNode childName:@"Name"];
     
@@ -197,7 +199,7 @@
  @param  featureTypeStyleNode The DDXMLElement corresponding to the FeatureTypeStyle element in the document tree.
  */
 - (SLDFeatureTypeStyle *)loadFeatureTypeStyleNode:(DDXMLElement *)featureTypeStyleNode {
-    NSLog(@"loadFeatureTypeStyleNode");
+    NSError *error;
     SLDFeatureTypeStyle *featureTypeStyle = [[SLDFeatureTypeStyle alloc] init];
 
     NSMutableArray *rules = [NSMutableArray array];
@@ -218,7 +220,7 @@
  @param  ruleNode The DDXMLElement corresponding to the Rule element in the document tree.
  */
 - (SLDRule *)loadRuleNode:(DDXMLElement *)ruleNode {
-    NSLog(@"loadRuleNode");
+    NSError *error;
     SLDRule *rule = [[SLDRule alloc] init];
     
     
@@ -246,13 +248,11 @@
     
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     
-//    DDXMLNode *minScaleNode = [self getSingleNodeForNode:ruleNode xpath:@"MinScaleDenominator" error:&error];
     DDXMLNode *minScaleNode = [self getSingleChildNodeForNode:ruleNode childName:@"MinScaleDenominator"];
     if (minScaleNode)
         rule.minScaleDenominator = [nf numberFromString:[minScaleNode stringValue]];
-//    DDXMLNode *maxScaleNode = [self getSingleNodeForNode:ruleNode xpath:@"MaxScaleDenominator" error:&error];
-    DDXMLNode *maxScaleNode = [self getSingleChildNodeForNode:ruleNode childName:@"MaxScaleDenominator"];
 
+    DDXMLNode *maxScaleNode = [self getSingleChildNodeForNode:ruleNode childName:@"MaxScaleDenominator"];
     if (maxScaleNode)
         rule.maxScaleDenominator = [nf numberFromString:[maxScaleNode stringValue]];
 
@@ -266,10 +266,12 @@
  @param ruleNode The DDXMLElement corresponding to the Rule element in the document tree.
  */
 - (void)loadSymbolizersForRule:(SLDRule *)rule andRuleNode:(DDXMLElement *)ruleNode {
+    NSError *error;
     rule.symbolizers = [NSMutableArray array];
     
     for (DDXMLNode *child in [ruleNode children]) {
-        NSArray <MaplyVectorTileStyle *> *symbolizers = [SLDSymbolizer maplyVectorTileStyleWithElement:(DDXMLElement* _Nonnull)child tileStyleSettings:self.tileStyleSettings viewC:self.viewC minScaleDenom:rule.minScaleDenominator maxScaleDenom:rule.maxScaleDenominator];
+        NSString *name = [child localName];
+        NSArray <MaplyVectorTileStyle *> *symbolizers = [SLDSymbolizer maplyVectorTileStyleWithElement:child tileStyleSettings:self.tileStyleSettings viewC:self.viewC minScaleDenom:rule.minScaleDenominator maxScaleDenom:rule.maxScaleDenominator baseURL:_baseURL];
         
         if (symbolizers) {
             for (MaplyVectorTileStyle * symbolizer in symbolizers) {
@@ -290,17 +292,16 @@
  */
 - (SLDFilter *)loadFilterNode:(DDXMLElement *)filterNode {
     
-    NSLog(@"loadFilterNode");
     SLDFilter *filter = [[SLDFilter alloc] init];
     
     for (DDXMLNode *child in [filterNode children]) {
         SLDOperator *operator = [SLDOperator operatorForNode:child];
         if (operator) {
-            filter.operator = operator;
+            filter.sldOperator = operator;
             break;
         }
         else
-            NSLog(@"unmatched %@", [child name]);
+            NSLog(@"SLDFilter; Unmatched operator: %@", [child localName]);
     }
 
     return filter;
@@ -316,6 +317,7 @@
                                              inLayer:(NSString *__nonnull)layer
                                                viewC:(MaplyBaseViewController *__nonnull)viewC {
     
+    
     if (self.useLayerNames) {
         SLDNamedLayer *namedLayer = _namedLayers[layer];
         if (!namedLayer)
@@ -323,9 +325,11 @@
         return [self stylesForFeatureWithAttributes:attributes onTile:tileID inNamedLayer:namedLayer viewC:viewC];
         
     } else {
+        // If we're not using layer names for matching, check all layers for
+        // matching styles.
         for (SLDNamedLayer *namedLayer in [_namedLayers allValues]) {
             NSArray *styles = [self stylesForFeatureWithAttributes:attributes onTile:tileID inNamedLayer:namedLayer viewC:viewC];
-            if (styles)
+            if (styles && styles.count > 0)
                 return styles;
         }
     }
@@ -344,15 +348,17 @@
         for (SLDFeatureTypeStyle *featureTypeStyle in userStyle.featureTypeStyles) {
             for (SLDRule *rule in featureTypeStyle.rules) {
                 matched = false;
+                if (rule.filters.count == 0 && rule.elseFilters.count == 0)
+                    matched = true;
                 for (SLDFilter *filter in rule.filters) {
-                    if ([filter.operator.predicate evaluateWithObject:attributes]) {
+                    if ([filter.sldOperator.predicate evaluateWithObject:attributes]) {
                         matched = true;
                         break;
                     }
                 }
                 if (!matched) {
                     for (SLDFilter *filter in rule.elseFilters) {
-                        if ([filter.operator.predicate evaluateWithObject:attributes]) {
+                        if ([filter.sldOperator.predicate evaluateWithObject:attributes]) {
                             matched = true;
                             break;
                         }

@@ -16,6 +16,7 @@
 #import "GeographyClassTestCase.h"
 #import "CesiumElevationTestCase.h"
 #import "VectorsTestCase.h"
+#import "TextureVectorTestCase.h"
 #import "ShapefileTestCase.h"
 #import "ScreenMarkersTestCase.h"
 #import "MapzenSource.h"
@@ -44,5 +45,6 @@
 #import "VectorHoleTestCase.h"
 #import "VectorStyleTestCase.h"
 #import "ActiveObjectTestCase.h"
+#import "GeoJSONSource.h"
 
 #endif
