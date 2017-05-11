@@ -83,9 +83,7 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:nil];
     if(path) {
         NSData *data = [NSData dataWithContentsOfFile:path];
-        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data
-                                                                       options:0 error:nil];
-        MaplyVectorObject *vecObj = [[MaplyVectorObject alloc] initWithGeoJSONDictionary:jsonDictionary];
+        MaplyVectorObject *vecObj = [[MaplyVectorObject alloc] initWithGeoJSON:data];
         if(vecObj) {
             MaplyComponentObject *obj1 = [baseViewC addWideVectors:@[vecObj]
                                  desc: @{kMaplyColor: [UIColor colorWithRed:1 green:0 blue:0 alpha:1.0],
@@ -121,8 +119,8 @@
 
 - (NSArray *)addGeoJson:(NSString*)name viewC:(MaplyBaseViewController *)viewC
 {
-    return [self addGeoJson:name dashPattern:@[@8, @8] width:4 viewC:viewC];
-//    return [self addGeoJson:name dashPattern:@[@8, @8] width:20 viewC:viewC];
+//    return [self addGeoJson:name dashPattern:@[@8, @8] width:4 viewC:viewC];
+    return [self addGeoJson:name dashPattern:@[@8, @8] width:20 viewC:viewC];
 }
 
 - (NSArray *)addWideVectors:(MaplyVectorObject *)vecObj baseViewC: (MaplyBaseViewController*) baseViewC dashedLineTex: (MaplyTexture*) dashedLineTex filledLineTex: (MaplyTexture*) filledLineTex
@@ -222,6 +220,8 @@
     [self addGeoJson:@"track.geojson" viewC:viewC];
     [self addGeoJson:@"uturn2.geojson" dashPattern:@[@16, @16] width:40 viewC:viewC];
     
+    [self addGeoJson:@"testJson.json" viewC:viewC];
+    
     //    [self addGeoJson:@"straight.geojson"];
     //    [self addGeoJson:@"uturn.geojson"];
 }
@@ -232,12 +232,16 @@
 	GeographyClassTestCase * baseLayer = [[GeographyClassTestCase alloc]init];
 	[baseLayer setUpWithGlobe:globeVC];
 	[self wideLineTest:globeVC];
+    [globeVC animateToPosition:MaplyCoordinateMakeWithDegrees(-122.4192, 37.7793) time:0.1];
+
 }
 
 - (void)setUpWithMap:(MaplyViewController *)mapVC{
 	GeographyClassTestCase * baseLayer = [[GeographyClassTestCase alloc]init];
 	[baseLayer setUpWithMap:mapVC];
 	[self wideLineTest:mapVC];
+    [mapVC animateToPosition:MaplyCoordinateMakeWithDegrees(-122.4192, 37.7793) time:0.1];
+
 }
 
 @end

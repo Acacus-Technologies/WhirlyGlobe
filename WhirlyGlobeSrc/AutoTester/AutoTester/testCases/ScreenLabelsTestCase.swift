@@ -11,6 +11,7 @@ import UIKit
 class ScreenLabelsTestCase: MaplyTestCase {
 
 	var labelList = [MaplyComponentObject]()
+    var markerList = [MaplyComponentObject]()
 
 	override init() {
 		super.init()
@@ -41,7 +42,6 @@ class ScreenLabelsTestCase: MaplyTestCase {
 			let object = arrayComp[i]
             let str = object.userObject as? String
             if str != nil {
-//            if str != nil && (str == "New Caledonia" || str == "Wallis and Futuna") {
 				let label = MaplyScreenLabel()
 
 				label.text = str
@@ -49,9 +49,9 @@ class ScreenLabelsTestCase: MaplyTestCase {
 				label.selectable = true
 				label.layoutImportance = 10
                 label.userObject = label.text;
-                label.layoutPlacement = kMaplyLayoutRight | kMaplyLayoutLeft | kMaplyLayoutAbove | kMaplyLayoutBelow;
-//                                                    label.rotation = Float(M_PI/2.0);
-//                label.offset = CGPoint(0.0,100.0);
+                label.layoutPlacement = kMaplyLayoutRight | kMaplyLayoutLeft | kMaplyLayoutAbove | kMaplyLayoutBelow
+//                label.rotation = Float(M_PI/2.0)
+//                label.offset = CGPoint(x: 100.0, y: 0.0)
 
 				if (i % 2 == 0) {
 					// Some with text shadow
@@ -60,7 +60,7 @@ class ScreenLabelsTestCase: MaplyTestCase {
 							kMaplyShadowColor: UIColor.black,
 							kMaplyShadowSize: 1.0,
                             kMaplySelectable: true,
-							kMaplyColor: UIColor.white]) {
+							kMaplyTextColor: UIColor.white]) {
 						labelList.append(comp)
 					}
 				}
@@ -71,10 +71,22 @@ class ScreenLabelsTestCase: MaplyTestCase {
 							kMaplyTextOutlineColor: UIColor.black,
 							kMaplyTextOutlineSize: 2.0,
                             kMaplySelectable: true,
-							kMaplyColor: UIColor.white]) {
+							kMaplyTextColor: UIColor.lightGray]) {
 						labelList.append(comp)
 					}
 				}
+                
+#if false
+                // Marker for reference
+                let marker = MaplyScreenMarker()
+                marker.loc = object.center()
+                marker.layoutImportance = MAXFLOAT
+                marker.size = CGSize(width: 4.0, height: 4.0)
+                if let comp = theViewC.addScreenMarkers([marker], desc: [kMaplyDrawPriority: 10000000])
+                {
+                    markerList.append(comp)
+                }
+#endif
 			}
 		}
 	}

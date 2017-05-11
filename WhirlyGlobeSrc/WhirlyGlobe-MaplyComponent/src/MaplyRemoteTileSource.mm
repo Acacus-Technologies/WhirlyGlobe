@@ -39,7 +39,6 @@ static bool trackConnections = false;
     bool cacheInit;
     int _minZoom,_maxZoom;
     int _pixelsPerSide;
-    bool replaceURL;
     std::vector<Mbr> mbrs;
 }
 
@@ -56,7 +55,7 @@ static bool trackConnections = false;
     _pixelsPerSide = 256;
     _timeOut = 0.0;
     _coordSys = [[MaplySphericalMercator alloc] initWebStandard];
-    replaceURL = [baseURL containsString:@"{y}"] && [baseURL containsString:@"{x}"]; // && [baseURL containsString:@"{z}"];
+    _replaceURL = [baseURL containsString:@"{y}"] && [baseURL containsString:@"{x}"]; // && [baseURL containsString:@"{z}"];
     
     return self;
 }
@@ -244,20 +243,20 @@ static bool trackConnections = false;
         if (_timeOut != 0.0)
             [urlReq setTimeoutInterval:_timeOut];
     } else {
-        if (replaceURL)
+        if (_replaceURL)
         {
             // Fetch the traditional way
             NSString *fullURLStr = [[[_baseURL stringByReplacingOccurrencesOfString:@"{z}" withString:[@(tileID.level) stringValue]]
                                      stringByReplacingOccurrencesOfString:@"{x}" withString:[@(tileID.x) stringValue]]
                                     stringByReplacingOccurrencesOfString:@"{y}" withString:[@(y) stringValue]];
             if (_ext)
-                fullURLStr = [NSString stringWithFormat:@"%@.%@",fullURLStr,_ext];
+                fullURLStr = [NSString stringWithFormat:@"%@.%@",fullURLStr,(_ext ? _ext : @"unk")];
             urlReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fullURLStr]];
             if (_timeOut != 0.0)
                 [urlReq setTimeoutInterval:_timeOut];
         } else {
             // Fetch the traditional way
-            NSMutableString *fullURLStr = [NSMutableString stringWithFormat:@"%@%d/%d/%d.%@",_baseURL,tileID.level,tileID.x,y,_ext];
+            NSMutableString *fullURLStr = [NSMutableString stringWithFormat:@"%@%d/%d/%d.%@",_baseURL,tileID.level,tileID.x,y,(_ext ? _ext : @"unk")];
             if (_queryStr)
                 [fullURLStr appendFormat:@"?%@",_queryStr];
             urlReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fullURLStr]];
@@ -546,19 +545,26 @@ static bool trackConnections = false;
                     if (weakSelf)
                     {
                         NSData *imgData = data;
-
-                        // Let the delegate know we loaded successfully
-                        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(remoteTileSource:tileDidLoad:)])
-                            [weakSelf.delegate remoteTileSource:weakSelf tileDidLoad:tileID];
-
-                        // Let's also write it back out for the cache
-                        [weakSelf.tileInfo writeToCache:tileID tileData:imgData];
-
+                        
                         if ([_delegate respondsToSelector:@selector(remoteTileSource:modifyTileReturn:forTile:)])
                             imgData = [_delegate remoteTileSource:self modifyTileReturn:imgData forTile:tileID];
 
                         // Let the paging layer know about it
-                        [layer loadedImages:imgData forTile:tileID];
+                        bool convertSuccess = [layer loadedImages:imgData forTile:tileID];
+
+                        // Let the delegate know we loaded successfully
+                        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(remoteTileSource:tileDidLoad:)])
+                        {
+                            if (convertSuccess)
+                                [weakSelf.delegate remoteTileSource:weakSelf tileDidLoad:tileID];
+                            else
+                                if ([weakSelf.delegate respondsToSelector:@selector(remoteTileSource:tileDidNotLoad:error:)])
+                                    [weakSelf.delegate remoteTileSource:weakSelf tileDidNotLoad:tileID error:nil];
+                        }
+
+                        // Let's also write it back out for the cache
+                        if (convertSuccess)
+                            [weakSelf.tileInfo writeToCache:tileID tileData:imgData];
 
                         [weakSelf clearTile:tileID];
                     }

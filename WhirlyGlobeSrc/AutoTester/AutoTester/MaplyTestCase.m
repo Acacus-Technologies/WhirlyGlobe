@@ -109,7 +109,9 @@
 {
 	// create and prepare the controller
 	self.mapViewController = [[MaplyViewController alloc] initWithMapType:MaplyMapTypeFlat];
+    self.mapViewController.viewWrap = true;
     self.baseViewController = self.mapViewController;
+    self.mapViewController.delegate = self;
 	
 	MaplyCoordinateSystem *coordSys = [self customCoordSystem];
 	if (coordSys)
@@ -276,6 +278,11 @@
 - (void)globeViewControllerDidTapOutside:(WhirlyGlobeViewController *)viewC
 {
     [self.baseViewController clearAnnotations];
+}
+
+-(void)maplyViewController:(MaplyViewController *)viewC didSelect:(NSObject *)selectedObj
+{
+    [self handleSelection:selectedObj];
 }
 
 - (void)maplyViewController:(MaplyViewController *__nonnull)viewC didSelect:(NSObject *__nonnull)selectedObj atLoc:(WGCoordinate)coord onScreen:(CGPoint)screenPt

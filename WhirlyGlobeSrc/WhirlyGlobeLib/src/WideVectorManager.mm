@@ -340,7 +340,7 @@ public:
                     {
                         InterPoint triVerts[3];
                         
-                        triVerts[0] = rPt0;
+                        triVerts[0] = texLen > texLen2 ? rPt0 : rPt1;
                         triVerts[0].texYmin = texNext;
                         triVerts[0].texYmax = texNext;
                         triVerts[1] = endPt1.flipped();
@@ -374,7 +374,7 @@ public:
                         // Bending left
                         InterPoint triVerts[3];
                         
-                        triVerts[0] = lPt0;
+                        triVerts[0] = texLen > texLen2 ? lPt0 : lPt1;
                         triVerts[0].texYmin = texNext;
                         triVerts[0].texYmax = texNext;
                         triVerts[1] = endPt0;
@@ -714,13 +714,13 @@ void WideVectorSceneRep::enableContents(bool enable,ChangeSet &changes)
         changes.push_back(new OnOffChangeRequest(*it,enable));
 }
 
-void WideVectorSceneRep::clearContents(ChangeSet &changes)
+void WideVectorSceneRep::clearContents(ChangeSet &changes,NSTimeInterval when)
 {
     SimpleIDSet allIDs = drawIDs;
     allIDs.insert(instIDs.begin(),instIDs.end());
     for (SimpleIDSet::iterator it = allIDs.begin();
          it != allIDs.end(); ++it)
-        changes.push_back(new RemDrawableReq(*it));
+        changes.push_back(new RemDrawableReq(*it,when));
 }
 
 WideVectorManager::WideVectorManager()
@@ -776,7 +776,14 @@ SimpleIdentity WideVectorManager::addVectors(ShapeSet *shapes,NSDictionary *desc
             {
                 for (const auto &loop : ar->loops)
                 {
-                    builder.addLinear(loop, centerUp, true);
+                    if (loop.size() > 2 && loop.begin() != loop.end())
+                    {
+                        // Just tack on another point at the end.  Kind of dumb, but easy.
+                        VectorRing newLoop = loop;
+                        newLoop.push_back(loop[0]);
+                        builder.addLinear(newLoop, centerUp, true);
+                    } else
+                        builder.addLinear(loop, centerUp, true);
                 }
             }
         }
@@ -890,6 +897,7 @@ void WideVectorManager::removeVectors(SimpleIDSet &vecIDs,ChangeSet &changes)
         {
             WideVectorSceneRep *sceneRep = *it;
             
+            NSTimeInterval removeTime = 0.0;
             if (sceneRep->fade > 0.0)
             {
                 SimpleIDSet allIDs = sceneRep->drawIDs;
@@ -897,30 +905,13 @@ void WideVectorManager::removeVectors(SimpleIDSet &vecIDs,ChangeSet &changes)
                 for (SimpleIDSet::iterator it = allIDs.begin();
                      it != allIDs.end(); ++it)
                     changes.push_back(new FadeChangeRequest(*it, curTime, curTime+sceneRep->fade));
-                
-                __block NSObject * __weak thisCanary = canary;
 
-                // Spawn off the deletion for later
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, sceneRep->fade * NSEC_PER_SEC),
-                               scene->getDispatchQueue(),
-                               ^{
-                                   if (thisCanary)
-                                   {
-                                       SimpleIDSet theIDs;
-                                       theIDs.insert(sceneRep->getId());
-                                       ChangeSet delChanges;
-                                       removeVectors(theIDs, delChanges);
-                                       scene->addChangeRequests(delChanges);
-                                   }
-                               }
-                               );
-                
-                sceneRep->fade = 0.0;
-            } else {
-                (*it)->clearContents(changes);
-                sceneReps.erase(it);
-                delete sceneRep;
+                removeTime = curTime + sceneRep->fade;
             }
+            
+            (*it)->clearContents(changes,removeTime);
+            sceneReps.erase(it);
+            delete sceneRep;
         }
     }
     

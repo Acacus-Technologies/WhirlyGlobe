@@ -36,9 +36,12 @@
 - (bool)addTexture:(WhirlyKit::Texture *)tex subTex:(WhirlyKit::SubTexture &)subTex changes:(WhirlyKit::ChangeSet &)changes;
 
 // Remove a texture from the atlas group
-- (void)removeTexture:(WhirlyKit::SimpleIdentity)subTexId changes:(WhirlyKit::ChangeSet &)changes;
+- (void)removeTexture:(WhirlyKit::SimpleIdentity)subTexId changes:(WhirlyKit::ChangeSet &)changes when:(NSTimeInterval)when;
 
 // Shut down the atlas group and clean up the associated memory
 - (void)clear:(WhirlyKit::ChangeSet &)changes;
+
+// Write out usage stats
+- (void)dumpStats;
 
 @end

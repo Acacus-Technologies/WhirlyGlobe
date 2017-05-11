@@ -171,6 +171,21 @@ using namespace WhirlyKit;
     _trackUp = false;
 }
 
+- (void)setNorthUp:(bool)newVal
+{
+    _northUp = newVal;
+}
+
+- (void)setDoRotation:(bool)newVal
+{
+    _doRotation = newVal;
+}
+
+- (void)setZoomAroundPinch:(bool)newVal
+{
+    _zoomAroundPinch = newVal;
+}
+
 // Called for pinch actions
 - (void)pinchGesture:(id)sender
 {
@@ -233,32 +248,27 @@ using namespace WhirlyKit;
             // Calculate a starting rotation
             if (valid && _doRotation)
             {
-                if (_allowPan)
+                CGPoint center = [pinch locationInView:glView];
+                CGPoint touch0 = [pinch locationOfTouch:0 inView:glView];
+                float dx = touch0.x-center.x,dy=touch0.y-center.y;
+                startRot = atan2(dy, dx);
+                Point3d hit;
+                Point3d interPt;
+                double interDist;
+                if (intManager->findIntersection(sceneRender, globeView, Point2f(sceneRender.framebufferWidth/glView.contentScaleFactor,sceneRender.framebufferHeight/glView.contentScaleFactor), Point2f(startPoint.x,startPoint.y), interPt, interDist))
                 {
-                    CGPoint center = [pinch locationInView:glView];
-                    CGPoint touch0 = [pinch locationOfTouch:0 inView:glView];
-                    float dx = touch0.x-center.x,dy=touch0.y-center.y;
-                    startRot = atan2(dy, dx);
-                    Point3d hit;
-                    Point3d interPt;
-                    double interDist;
-                    if (intManager->findIntersection(sceneRender, globeView, Point2f(sceneRender.framebufferWidth/glView.contentScaleFactor,sceneRender.framebufferHeight/glView.contentScaleFactor), Point2f(startPoint.x,startPoint.y), interPt, interDist))
+                    sphereRadius = interPt.norm();
+                    startOnSphere = interPt.normalized();
+                    startRotAxisValid = true;
+                    startRotAxis = hit;
+                } else {
+                    if ([globeView pointOnSphereFromScreen:center transform:&startTransform
+                                                 frameSize:Point2f(sceneRender.framebufferWidth/glView.contentScaleFactor,sceneRender.framebufferHeight/glView.contentScaleFactor)
+                                                       hit:&hit normalized:true])
                     {
-                        sphereRadius = interPt.norm();
-                        startOnSphere = interPt.normalized();
                         startRotAxisValid = true;
                         startRotAxis = hit;
-                    } else {
-                        if ([globeView pointOnSphereFromScreen:center transform:&startTransform
-                                                     frameSize:Point2f(sceneRender.framebufferWidth/glView.contentScaleFactor,sceneRender.framebufferHeight/glView.contentScaleFactor)
-                                                           hit:&hit normalized:true])
-                        {
-                            startRotAxisValid = true;
-                            startRotAxis = hit;
-                        }
                     }
-                } else {
-                    startRotAxisValid = false;
                 }
             }
 
@@ -283,7 +293,9 @@ using namespace WhirlyKit;
                 Eigen::Quaterniond newRotQuat = globeView.rotQuat;
                 Point3d axis = [globeView currentUp];
                 Eigen::Quaterniond oldQuat = globeView.rotQuat;
-                if (_allowPan)
+                if (_doRotation && startRotAxisValid && !(_northUp || _trackUp))
+                    newRotQuat = startQuat;
+                if (_allowPan || _zoomAroundPinch)
                 {
                     if (_zoomAroundPinch)
                     {
@@ -373,7 +385,7 @@ using namespace WhirlyKit;
                     return;
                 }
                 
-                if (_allowPan)
+                if (_allowPan || _doRotation)
                     [globeView setRotQuat:(newRotQuat) updateWatchers:false];
                 if (_tiltDelegate)
                 {
